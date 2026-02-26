@@ -1,5 +1,9 @@
 # SRE Capacity Planning & Autoscaling Suite (starter)
 
+[![CI](https://github.com/wriengxay/sre-capacity-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/wriengxay/sre-capacity-suite/actions)
+[![Release](https://img.shields.io/github/v/release/wriengxay/sre-capacity-suite)](https://github.com/wriengxay/sre-capacity-suite/releases/latest)
+[![Pages](https://img.shields.io/badge/pages-published-blue)](https://wriengxay.github.io/sre-capacity-suite/output/report.html)
+
 This repository is a minimal starter for a Capacity Planning & Autoscaling Suite.
 
 Contents
