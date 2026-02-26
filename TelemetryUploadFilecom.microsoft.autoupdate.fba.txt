@@ -1,0 +1,32 @@
+[Microsoft Update Assistant] <Info> Configuration.Metadata: {"LaunchedBy":"Agent"}
+[Microsoft Update Assistant] <Info> LifeCycle.PreviousExitData: {"PrevSessionDetectedHangCount":0,"PrevSessionDurationSeconds":40.671464085578918,"PrevSessionTerminationDurationSeconds":793112512.64737105,"PrevSessionVersion":"4.82","PrevExitWasGraceful":"YES","PrevSessionLongBuildNumber":"26020434","PrevSessionId":"4B40CE89-585F-4FA5-8DAA-CA7D81C7BFAA","PrevSessionOSLocale":"en_US","LastULSLogTag":0,"ExceptionEnum":1611464704,"PrevSessionBuildNumber":"0","PrevSessionOSVersion":"15.7.3"}
+[Microsoft Update Assistant] <Info> AppRegistry.Info: {"Payload":{"MSau04":{"Copies":1,"Versions":["4.82.26020434"]}}}
+[Microsoft Update Assistant] <Info> WebServices.WebContent: {"Payload":"Action received for MWSOnBoot"}
+[Microsoft Update Assistant] <Info> WebServices.WebContent: {"Payload":"Action received for MWSOnCheckForUpdate"}
+[Microsoft Update Assistant] <Info> UpdateManager.Network: {"ServerReachable":"YES"}
+[Microsoft Update Assistant] <Info> LifeCycle.Terminate: {"SessionLength":"42"}
+[Microsoft Update Assistant] <Info> Configuration.Metadata: {"LaunchedBy":"Agent"}
+[Microsoft Update Assistant] <Info> LifeCycle.PreviousExitData: {"PrevSessionDetectedHangCount":0,"PrevSessionDurationSeconds":42.627555966377258,"PrevSessionTerminationDurationSeconds":793197360.12667298,"PrevSessionVersion":"4.82","PrevExitWasGraceful":"YES","PrevSessionLongBuildNumber":"26020434","PrevSessionId":"6D138DA6-6835-40F8-AB12-97446CD5CF2E","PrevSessionOSLocale":"en_US","LastULSLogTag":0,"ExceptionEnum":1611464704,"PrevSessionBuildNumber":"0","PrevSessionOSVersion":"15.7.3"}
+[Microsoft Update Assistant] <Info> AppRegistry.Info: {"Payload":{"MSau04":{"Copies":1,"Versions":["4.82.26020434"]}}}
+[Microsoft Update Assistant] <Warning> ErrorsAndWarnings: {"Error":{"ResponseTime":2.472996711730957,"CallerID":"MWSOnBoot","ErrorDomain":"NSURLErrorDomain","API":"/Actions","ErrorCode":"-1009","Timeout":"NO"},"Operation":"WebService"}
+[Microsoft Update Assistant] <Info> LifeCycle.Terminate: {"SessionLength":"5720"}
+[Microsoft Update Assistant] <Info> Configuration.Metadata: {"LaunchedBy":"Agent"}
+[Microsoft Update Assistant] <Info> LifeCycle.PreviousExitData: {"PrevSessionDetectedHangCount":0,"PrevSessionDurationSeconds":5720.9459090232849,"PrevSessionTerminationDurationSeconds":793236383.54503906,"PrevSessionVersion":"4.82","PrevExitWasGraceful":"YES","PrevSessionLongBuildNumber":"26020434","PrevSessionId":"D26FBDFE-37D8-4AC3-AF40-D99F88CDAF33","PrevSessionOSLocale":"en_US","LastULSLogTag":0,"ExceptionEnum":1611464704,"PrevSessionBuildNumber":"0","PrevSessionOSVersion":"15.7.3"}
+[Microsoft Update Assistant] <Info> AppRegistry.Info: {"Payload":{"MSau04":{"Copies":1,"Versions":["4.82.26020434"]}}}
+[Microsoft Update Assistant] <Warning> ErrorsAndWarnings: {"Error":{"ResponseTime":3.9440393447875977,"CallerID":"MWSOnBoot","ErrorDomain":"NSURLErrorDomain","API":"/Actions","ErrorCode":"-1009","Timeout":"NO"},"Operation":"WebService"}
+[Microsoft Update Assistant] <Warning> ErrorsAndWarnings: {"Error":{"ResponseTime":3.3199787139892578,"CallerID":"MWSOnCheckForUpdate","ErrorDomain":"NSURLErrorDomain","API":"/Actions","ErrorCode":"-1009","Timeout":"NO"},"Operation":"WebService"}
+[Microsoft Update Assistant] <Info> ErrorsAndWarnings: {"Error":"unable to connect to server. ServerName: res.public.onecdn.static.microsoft, ValidFlags: TRUE, ReachabilityFlags: 0","Operation":"Server"}
+[Microsoft Update Assistant] <Info> UpdateManager.Network: {"ServerReachable":"NO"}
+[Microsoft Update Assistant] <Info> LifeCycle.Terminate: {"SessionLength":"40"}
+[Microsoft Update Assistant] <Info> Configuration.Metadata: {"LaunchedBy":"Agent"}
+[Microsoft Update Assistant] <Info> LifeCycle.PreviousExitData: {"PrevSessionDetectedHangCount":0,"PrevSessionDurationSeconds":40.420696973800659,"PrevSessionTerminationDurationSeconds":793342075.49161696,"PrevSessionVersion":"4.82","PrevExitWasGraceful":"YES","PrevSessionLongBuildNumber":"26020434","PrevSessionId":"6D576750-C270-40E5-8006-835762E3D304","PrevSessionOSLocale":"en_US","LastULSLogTag":0,"ExceptionEnum":1611464704,"PrevSessionBuildNumber":"0","PrevSessionOSVersion":"15.7.3"}
+[Microsoft Update Assistant] <Info> AppRegistry.Info: {"Payload":{"MSau04":{"Copies":1,"Versions":["4.82.26020434"]}}}
+[Microsoft Update Assistant] <Info> WebServices.WebContent: {"Payload":"Action received for MWSOnBoot"}
+[Microsoft Update Assistant] <Info> WebServices.WebContent: {"Payload":"Action received for MWSOnCheckForUpdate"}
+[Microsoft Update Assistant] <Info> UpdateManager.Network: {"ServerReachable":"YES"}
+[Microsoft Update Assistant] <Info> LifeCycle.Terminate: {"SessionLength":"40"}
+[Microsoft Update Assistant] <Info> Configuration.Metadata: {"LaunchedBy":"Agent"}
+[Microsoft Update Assistant] <Info> LifeCycle.PreviousExitData: {"PrevSessionDetectedHangCount":0,"PrevSessionDurationSeconds":40.482087016105652,"PrevSessionTerminationDurationSeconds":793719858.25789905,"PrevSessionVersion":"4.82","PrevExitWasGraceful":"YES","PrevSessionLongBuildNumber":"26020434","PrevSessionId":"ED7E43CA-7739-4443-BB10-61BA90FB7D7C","PrevSessionOSLocale":"en_US","LastULSLogTag":0,"ExceptionEnum":1611464704,"PrevSessionBuildNumber":"0","PrevSessionOSVersion":"15.7.3"}
+[Microsoft Update Assistant] <Info> AppRegistry.Info: {"Payload":{"MSau04":{"Copies":1,"Versions":["4.82.26020434"]}}}
+[Microsoft Update Assistant] <Info> WebServices.WebContent: {"Payload":"Action received for MWSOnBoot"}
+[Microsoft Update Assistant] <Info> LifeCycle.Terminate: {"SessionLength":"40"}

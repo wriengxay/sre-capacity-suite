@@ -1,0 +1,61 @@
+BEGIN:VCALENDAR
+PRODID:-//zoom.us//iCalendar Event//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+CLASS:PUBLIC
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+TZURL:http://tzurl.org/zoneinfo-outlook/America/Chicago
+X-LIC-LOCATION:America/Chicago
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+TZNAME:CDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+TZNAME:CST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20210209T181357Z
+DTSTART;TZID=America/Chicago:20210209T120000
+DTEND;TZID=America/Chicago:20210209T131500
+SUMMARY:ISDS3107
+RRULE:FREQ=WEEKLY;WKST=SU;UNTIL=20210506T181500;INTERVAL=1;BYDAY=TU,TH
+UID:ZOOM97127345129
+TZID:America/Chicago
+DESCRIPTION:James Davis is inviting you to a scheduled Zoom meeting.\n\nJ
+ oin Zoom Meeting\nhttps://lsu.zoom.us/j/97127345129?pwd=YWE3NythSVYreXVp
+ TVl3QzBmYW56dz09\n\nMeeting ID: 971 2734 5129\nPasscode: 160882\nOne tap
+  mobile\n+13126266799\,\,97127345129# US (Chicago)\n+16468769923\,\,9712
+ 7345129# US (New York)\n\nDial by your location\n        +1 312 626 6799
+  US (Chicago)\n        +1 646 876 9923 US (New York)\n        +1 301 715
+  8592 US (Washington DC)\n        +1 669 900 6833 US (San Jose)\n       
+  +1 253 215 8782 US (Tacoma)\n        +1 346 248 7799 US (Houston)\n    
+     +1 408 638 0968 US (San Jose)\n        888 788 0099 US Toll-free\n  
+       877 853 5247 US Toll-free\nMeeting ID: 971 2734 5129\nFind your lo
+ cal number: https://lsu.zoom.us/u/aceUJwhxzt\n\nJoin by SIP\n97127345129
+ @zoomcrc.com\n\nJoin by H.323\n162.255.37.11 (US West)\n162.255.36.11 (U
+ S East)\n115.114.131.7 (India Mumbai)\n115.114.115.7 (India Hyderabad)\n
+ 213.19.144.110 (Amsterdam Netherlands)\n213.244.140.110 (Germany)\n103.1
+ 22.166.55 (Australia Sydney)\n103.122.167.55 (Australia Melbourne)\n149.
+ 137.40.110 (Singapore)\n64.211.144.160 (Brazil)\n69.174.57.160 (Canada T
+ oronto)\n65.39.152.160 (Canada Vancouver)\n207.226.132.110 (Japan Tokyo)
+ \n149.137.24.110 (Japan Osaka)\nMeeting ID: 971 2734 5129\nPasscode: 160
+ 882\n\n
+LOCATION:https://lsu.zoom.us/j/97127345129?pwd=YWE3NythSVYreXVpTVl3QzBmYW
+ 56dz09
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR
