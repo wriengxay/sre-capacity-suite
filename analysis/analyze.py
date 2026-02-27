@@ -13,6 +13,17 @@ except Exception:
         from prometheus_fetch import fetch_range
 
 try:
+    from .prometheus_agg import aggregate_prometheus_by_deployment
+except Exception:
+    try:
+        from analysis.prometheus_agg import aggregate_prometheus_by_deployment
+    except Exception:
+        try:
+            from prometheus_agg import aggregate_prometheus_by_deployment
+        except Exception:
+            aggregate_prometheus_by_deployment = None
+
+try:
     from .report import generate_html
 except Exception:
     try:
@@ -85,9 +96,41 @@ def detect_trend(df: pd.DataFrame) -> dict:
     return out
 
 
-def get_vpa_recommendation_from_kubectl(deployment: str, namespace: str = "default") -> dict:
+def get_vpa_recommendation_from_k8s(deployment: str, namespace: str = "default") -> dict:
+    """Use the Kubernetes Python client to fetch VPA recommendations for a deployment.
+
+    Returns a dict with key `vpa_recommendation` containing the recommendation object
+    or None if not found.
+    """
     try:
-        cmd = ["kubectl", "get", "vpa", "-n", namespace, "-o", "json"]
+        from kubernetes import client, config
+        # Try in-cluster then kubeconfig
+        try:
+            config.load_incluster_config()
+        except Exception:
+            config.load_kube_config()
+
+        api = client.CustomObjectsApi()
+        group = "autoscaling.k8s.io"
+        version = "v1"
+        plural = "verticalpodautoscalers"
+        try:
+            res = api.list_namespaced_custom_object(group=group, version=version, namespace=namespace, plural=plural)
+        except Exception:
+            # Fallback to cluster-wide list
+            res = api.list_cluster_custom_object(group=group, version=version, plural=plural)
+
+        items = res.get("items", [])
+        for item in items:
+            target = item.get("spec", {}).get("targetRef", {})
+            if target.get("name") == deployment:
+                rec = item.get("status", {}).get("recommendation", None)
+                return {"vpa_recommendation": rec}
+    except Exception as e:
+        print(f"K8s VPA lookup failed: {e}")
+    # Fallback: try kubectl if present
+    try:
+        cmd = ["kubectl", "get", "verticalpodautoscalers", "-n", namespace, "-o", "json"]
         res = subprocess.run(cmd, capture_output=True, text=True, check=True)
         import json
 
@@ -95,11 +138,10 @@ def get_vpa_recommendation_from_kubectl(deployment: str, namespace: str = "defau
         for item in j.get("items", []):
             target = item.get("spec", {}).get("targetRef", {})
             if target.get("name") == deployment:
-                # parse status.recommendation
                 rec = item.get("status", {}).get("recommendation", {})
                 return {"vpa_recommendation": rec}
-    except Exception as e:
-        print(f"VPA lookup failed: {e}")
+    except Exception:
+        pass
     return {"vpa_recommendation": None}
 
 
@@ -113,7 +155,7 @@ if __name__ == "__main__":
     p.add_argument("--replica-query", help="Prometheus range query returning replica count per timestamp")
     p.add_argument("--start", help="Start time (RFC3339) for Prometheus queries")
     p.add_argument("--end", help="End time (RFC3339) for Prometheus queries")
-    p.add_argument("--vpa-deployment", help="Deployment name to lookup VPA recommendation via kubectl")
+    p.add_argument("--vpa-deployment", help="Deployment name to lookup VPA recommendation (uses Kubernetes Python client)")
     p.add_argument("--namespace", default="default")
     p.add_argument("--report", help="Path to write HTML report (optional)")
     args = p.parse_args()
@@ -129,7 +171,40 @@ if __name__ == "__main__":
         else:
             end = datetime.utcnow()
 
-        cpu_df = fetch_range(args.prometheus_url, args.cpu_query, start, end, step="60s")
+        # Try to aggregate pod-level series into deployments when possible
+        cpu_df = None
+        if aggregate_prometheus_by_deployment:
+            try:
+                agg = aggregate_prometheus_by_deployment(args.prometheus_url, args.cpu_query, start, end, step="60s")
+                if agg:
+                    # If user requested a specific deployment, choose that one
+                    if args.vpa_deployment and args.vpa_deployment in agg:
+                        cpu_df = agg[args.vpa_deployment]
+                    elif len(agg) == 1:
+                        # only one deployment present
+                        cpu_df = list(agg.values())[0]
+                    else:
+                        # multiple deployments: sum across them (treat as total)
+                        # align timestamps by seconds and sum values
+                        all_ts = set()
+                        for df_ in agg.values():
+                            all_ts.update(df_["timestamp"].astype("int64") // 10 ** 9)
+                        all_ts = sorted(all_ts)
+                        rows = []
+                        for t in all_ts:
+                            s = 0.0
+                            for df_ in agg.values():
+                                df_["ts_s"] = df_["timestamp"].astype("int64") // 10 ** 9
+                                vrow = df_.loc[df_["ts_s"] == t, "value"]
+                                if not vrow.empty:
+                                    s += float(vrow.iloc[0])
+                            rows.append((pd.to_datetime(t, unit='s'), s))
+                        cpu_df = pd.DataFrame(rows, columns=["timestamp", "value"]) if rows else None
+            except Exception as e:
+                print(f"Aggregation by deployment failed: {e}")
+
+        if cpu_df is None:
+            cpu_df = fetch_range(args.prometheus_url, args.cpu_query, start, end, step="60s")
         if args.replica_query:
             rep_df = fetch_range(args.prometheus_url, args.replica_query, start, end, step="60s")
             # join on timestamp (second precision)
@@ -148,7 +223,7 @@ if __name__ == "__main__":
         trend = detect_trend(df)
         vpa = None
         if args.vpa_deployment:
-            vpa = get_vpa_recommendation_from_kubectl(args.vpa_deployment, args.namespace)
+            vpa = get_vpa_recommendation_from_k8s(args.vpa_deployment, args.namespace)
         if args.report:
             import os
 
@@ -163,7 +238,7 @@ if __name__ == "__main__":
         trend = detect_trend(df)
         vpa = None
         if args.vpa_deployment:
-            vpa = get_vpa_recommendation_from_kubectl(args.vpa_deployment, args.namespace)
+            vpa = get_vpa_recommendation_from_k8s(args.vpa_deployment, args.namespace)
         if args.report:
             import os
 
@@ -174,6 +249,6 @@ if __name__ == "__main__":
         print("Provide either a CSV file or --prometheus-url with --cpu-query")
 
     if args.vpa_deployment and not (args.prometheus_url and args.cpu_query):
-        v = get_vpa_recommendation_from_kubectl(args.vpa_deployment, args.namespace)
+        v = get_vpa_recommendation_from_k8s(args.vpa_deployment, args.namespace)
         print("VPA:", v)
 
