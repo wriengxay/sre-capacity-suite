@@ -20,9 +20,7 @@ jobs:
           pip install pytest
       - name: Run unit tests
         run: |
-          echo "Workspace listing:" && ls -la || true
-          echo "Top-level files:" && find . -maxdepth 2 -type f | sed -n '1,200p' || true
-          pytest -q || pytest -q tests
+          pytest -q tests
       - name: Run demo (generate metrics + analysis)
         run: |
           chmod +x scripts/run_demo.sh
