@@ -20,7 +20,7 @@ jobs:
           pip install pytest
       - name: Run unit tests
         run: |
-          pytest -q
+          pytest -q tests
       - name: Run demo (generate metrics + analysis)
         run: |
           chmod +x scripts/run_demo.sh
